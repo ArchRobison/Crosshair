@@ -5,6 +5,7 @@ import (
 	"github.com/veandco/go-sdl2/sdl"
 	"os"
 	"reflect"
+    "runtime"
 	"unsafe"
 )
 
@@ -75,6 +76,9 @@ var winTitle string = "Crosshair"
 var winWidth, winHeight int = 800, 600
 
 func run() int {
+    // See discussion at https://github.com/golang/go/wiki/LockOSThread
+    runtime.LockOSThread()
+    defer runtime.UnlockOSThread()
 
 	// Create window
 	window, err := sdl.CreateWindow(winTitle, sdl.WINDOWPOS_UNDEFINED, sdl.WINDOWPOS_UNDEFINED,
