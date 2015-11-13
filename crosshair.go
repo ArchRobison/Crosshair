@@ -59,13 +59,18 @@ func drawCross(pixels []Pixel, pitch int, width int, height int, x0 int, y0 int)
 	x0 = clip(x0, 0, width)
 	y0 = clip(y0, 0, height)
 	for y := 0; y < height; y++ {
+		for x := 0; x < width; x++ {
+			pixels[y*pitch+x] = 0xFF0000 // red
+		}
+	}
+	for y := 0; y < height; y++ {
 		generateGarbage()
 		for x := 0; x < width; x++ {
 			var color Pixel
 			if y == y0 || x == x0 {
-				color = 0xFFFFFFFF
+				color = 0xFFFFFFFF // white
 			} else {
-				color = 0xFF000000
+				color = 0xFF000000 // black
 			}
 			pixels[y*pitch+x] = color
 		}
